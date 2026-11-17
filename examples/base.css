@@ -1,0 +1,96 @@
+/* =========================================================
+   Shared base for the example pages
+   (not part of the Narleaf Motion library)
+   ========================================================= */
+
+@font-face {
+  font-family: "Public Sans";
+  src: url("../fonts/public-sans/PublicSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../fonts/ibm-plex-mono/IBMPlexMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("../fonts/ibm-plex-mono/IBMPlexMono-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Strip above every example: links back to the docs */
+.ex-bar {
+  background: #111112;
+  border-bottom: 1px solid #2c2c2f;
+  color: #a4a4ab;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+}
+
+.ex-bar .nar-container {
+  --nar-container-max: 1120px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 24px;
+  padding-block: 10px;
+}
+
+.ex-bar a { color: #ededee; text-decoration: none; }
+.ex-bar a:hover { text-decoration: underline; }
+
+/* Smooth in-page navigation (skipped when the user prefers reduced motion) */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Flat image placeholder: dark box with an image icon */
+.ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ph-bg);
+  border: 1px solid var(--line);
+}
+
+.ph svg {
+  width: 44px;
+  height: 44px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: .45;
+}

@@ -1,0 +1,269 @@
+/* =========================================================
+   Narleaf Motion
+   CSS-only scroll-driven motion system
+
+   Philosophy: Sensible Defaults, Optional Customization
+   "Make it work first, customize later."
+
+   ─────────────────────────────────────────────────────────
+   LEVEL 1 — Minimal usage (no extra attributes needed)
+   ─────────────────────────────────────────────────────────
+   <div data-nar-motion="fade"></div>
+   <div data-nar-motion="scale-up"></div>
+   <div data-nar-motion="slide-up"></div>
+   <div data-nar-motion="slide-down"></div>
+
+   ─────────────────────────────────────────────────────────
+   LEVEL 2 — Optional customization
+   ─────────────────────────────────────────────────────────
+   data-nar-motion-start="10"
+   Where the animation begins, expressed as a percentage of
+   the element's total time on screen (0% = element begins
+   entering the viewport, 100% = element has fully exited).
+   Default: 10. Supported values: 0, 5, 10 ... 95, 100 (multiples of 5 only)
+
+   data-nar-motion-end="50"
+   Where the animation finishes, on the same 0–100 scale as
+   data-nar-motion-start. After this point the element stays
+   static until it exits the viewport.
+   Default: 50. Supported values: 0, 5, 10 ... 95, 100 (multiples of 5 only)
+
+   data-nar-scale-start="70"
+   The element's starting size, as a percentage of its final
+   size, for the scale-up animation. The value IS the visual
+   starting scale — no inversion, no extra math.
+   Default: 70. Supported values: 90, 80, 70, 60, 50
+   (90 = subtlest effect, 50 = strongest effect)
+   Note: has no effect on fade animations.
+
+   data-nar-slide-distance="50"   → 50px  ← default
+   Supported values: 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150
+   Note: only affects slide-up and slide-down animations.
+
+   data-nar-motion-will-change
+   Opt-in only. Excessive use increases memory usage.
+
+   ─────────────────────────────────────────────────────────
+   Browser support
+   ─────────────────────────────────────────────────────────
+   Browsers without scroll-driven animation support
+   show content normally (progressive enhancement).
+   ========================================================= */
+
+
+/* =========================================================
+   SCROLL-DRIVEN MOTION
+   ========================================================= */
+
+@supports ((animation-timeline: view()) and (animation-range: entry 0% exit 100%)) {
+
+  /* ---
+     Base: shared animation config + sensible defaults.
+     All attributes are optional — omitting them falls back
+     to these values automatically.
+
+     Both range-start and range-end use the "cover" named
+     range (0% = element begins entering the viewport,
+     100% = element has fully exited). Using the same named
+     range for both endpoints keeps --nar-start and
+     --nar-end on one consistent, size-independent scale.
+
+     animation-range-start and animation-range-end are used
+     as separate properties instead of the animation-range
+     shorthand. The shorthand does not reliably accept CSS
+     custom properties (Chromium bug #335473).
+
+     --nar-scale holds the element's starting size directly
+     (e.g. 0.70 = starts at 70% size), so the scale-up
+     keyframe below assigns it straight to `scale` with no
+     calc() inversion.
+  --- */
+  :where([data-nar-motion]) {
+    --nar-start:    10%;
+    --nar-end:      50%;
+    --nar-scale:    0.70;
+    --nar-distance: 50px;
+
+    animation-duration:        1ms;
+    animation-timing-function: linear;
+    animation-fill-mode:       both;
+    animation-timeline:        view();
+    animation-range-start:     cover var(--nar-start);
+    animation-range-end:       cover var(--nar-end);
+  }
+
+  /* ---
+     will-change: opt-in only.
+     Use sparingly — excessive use increases memory usage.
+  --- */
+  :where([data-nar-motion][data-nar-motion-will-change]) {
+    will-change: opacity, scale, translate;
+  }
+
+
+  /* -------------------------------------------------------
+     MOTION-START TOKENS
+     Override --nar-start when present.
+     Percentage of the element's total time on screen at
+     which the animation begins. Omitting the attribute uses
+     the default (10%). Supported values: multiples of 5,
+     from 0 to 100.
+  ------------------------------------------------------- */
+
+  :where([data-nar-motion-start="0"])   { --nar-start:   0%; }
+  :where([data-nar-motion-start="5"])   { --nar-start:   5%; }
+  :where([data-nar-motion-start="10"])  { --nar-start:  10%; }
+  :where([data-nar-motion-start="15"])  { --nar-start:  15%; }
+  :where([data-nar-motion-start="20"])  { --nar-start:  20%; }
+  :where([data-nar-motion-start="25"])  { --nar-start:  25%; }
+  :where([data-nar-motion-start="30"])  { --nar-start:  30%; }
+  :where([data-nar-motion-start="35"])  { --nar-start:  35%; }
+  :where([data-nar-motion-start="40"])  { --nar-start:  40%; }
+  :where([data-nar-motion-start="45"])  { --nar-start:  45%; }
+  :where([data-nar-motion-start="50"])  { --nar-start:  50%; }
+  :where([data-nar-motion-start="55"])  { --nar-start:  55%; }
+  :where([data-nar-motion-start="60"])  { --nar-start:  60%; }
+  :where([data-nar-motion-start="65"])  { --nar-start:  65%; }
+  :where([data-nar-motion-start="70"])  { --nar-start:  70%; }
+  :where([data-nar-motion-start="75"])  { --nar-start:  75%; }
+  :where([data-nar-motion-start="80"])  { --nar-start:  80%; }
+  :where([data-nar-motion-start="85"])  { --nar-start:  85%; }
+  :where([data-nar-motion-start="90"])  { --nar-start:  90%; }
+  :where([data-nar-motion-start="95"])  { --nar-start:  95%; }
+  :where([data-nar-motion-start="100"]) { --nar-start: 100%; }
+
+
+  /* -------------------------------------------------------
+     MOTION-END TOKENS
+     Override --nar-end when present.
+     Percentage of the element's total time on screen at
+     which the animation finishes. After this point the
+     element stays static until it exits the viewport.
+     Omitting the attribute uses the default (50%).
+     Supported values: multiples of 5, from 0 to 100.
+  ------------------------------------------------------- */
+
+  :where([data-nar-motion-end="0"])   { --nar-end:   0%; }
+  :where([data-nar-motion-end="5"])   { --nar-end:   5%; }
+  :where([data-nar-motion-end="10"])  { --nar-end:  10%; }
+  :where([data-nar-motion-end="15"])  { --nar-end:  15%; }
+  :where([data-nar-motion-end="20"])  { --nar-end:  20%; }
+  :where([data-nar-motion-end="25"])  { --nar-end:  25%; }
+  :where([data-nar-motion-end="30"])  { --nar-end:  30%; }
+  :where([data-nar-motion-end="35"])  { --nar-end:  35%; }
+  :where([data-nar-motion-end="40"])  { --nar-end:  40%; }
+  :where([data-nar-motion-end="45"])  { --nar-end:  45%; }
+  :where([data-nar-motion-end="50"])  { --nar-end:  50%; }
+  :where([data-nar-motion-end="55"])  { --nar-end:  55%; }
+  :where([data-nar-motion-end="60"])  { --nar-end:  60%; }
+  :where([data-nar-motion-end="65"])  { --nar-end:  65%; }
+  :where([data-nar-motion-end="70"])  { --nar-end:  70%; }
+  :where([data-nar-motion-end="75"])  { --nar-end:  75%; }
+  :where([data-nar-motion-end="80"])  { --nar-end:  80%; }
+  :where([data-nar-motion-end="85"])  { --nar-end:  85%; }
+  :where([data-nar-motion-end="90"])  { --nar-end:  90%; }
+  :where([data-nar-motion-end="95"])  { --nar-end:  95%; }
+  :where([data-nar-motion-end="100"]) { --nar-end: 100%; }
+
+
+  /* -------------------------------------------------------
+     SCALE-START TOKENS
+     Override --nar-scale when present.
+     The value IS the starting size percentage — assigned
+     directly to --nar-scale, no inversion needed.
+     Omitting the attribute uses the default (0.70 = 70%).
+     Has no effect on fade animations.
+  ------------------------------------------------------- */
+
+  :where([data-nar-scale-start="90"]) { --nar-scale: 0.90; }
+  :where([data-nar-scale-start="80"]) { --nar-scale: 0.80; }
+  :where([data-nar-scale-start="70"]) { --nar-scale: 0.70; }
+  :where([data-nar-scale-start="60"]) { --nar-scale: 0.60; }
+  :where([data-nar-scale-start="50"]) { --nar-scale: 0.50; }
+
+
+  /* -------------------------------------------------------
+     SLIDE-DISTANCE TOKENS
+     Override --nar-distance when present.
+     Omitting the attribute uses the default (50px).
+     Only affects slide-up and slide-down animations.
+  ------------------------------------------------------- */
+
+  :where([data-nar-slide-distance="30"])  { --nar-distance:  30px; }
+  :where([data-nar-slide-distance="40"])  { --nar-distance:  40px; }
+  :where([data-nar-slide-distance="50"])  { --nar-distance:  50px; }
+  :where([data-nar-slide-distance="60"])  { --nar-distance:  60px; }
+  :where([data-nar-slide-distance="70"])  { --nar-distance:  70px; }
+  :where([data-nar-slide-distance="80"])  { --nar-distance:  80px; }
+  :where([data-nar-slide-distance="90"])  { --nar-distance:  90px; }
+  :where([data-nar-slide-distance="100"]) { --nar-distance: 100px; }
+  :where([data-nar-slide-distance="110"]) { --nar-distance: 110px; }
+  :where([data-nar-slide-distance="120"]) { --nar-distance: 120px; }
+  :where([data-nar-slide-distance="130"]) { --nar-distance: 130px; }
+  :where([data-nar-slide-distance="140"]) { --nar-distance: 140px; }
+  :where([data-nar-slide-distance="150"]) { --nar-distance: 150px; }
+
+
+  /* -------------------------------------------------------
+     MOTION TYPE → ANIMATION NAME
+  ------------------------------------------------------- */
+
+  :where([data-nar-motion="fade"])       { animation-name: nar-fade; }
+  :where([data-nar-motion="scale-up"])   { animation-name: nar-scale-up; }
+  :where([data-nar-motion="slide-up"])   { animation-name: nar-slide-up; }
+  :where([data-nar-motion="slide-down"]) { animation-name: nar-slide-down; }
+
+}
+
+
+/* =========================================================
+   FALLBACK
+
+   Browsers without scroll-driven animation support
+   show content normally (progressive enhancement).
+   ========================================================= */
+
+@supports not ((animation-timeline: view()) and (animation-range: entry 0% exit 100%)) {
+  :where([data-nar-motion]) {
+    animation: none;
+  }
+}
+
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes nar-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes nar-scale-up {
+  from { opacity: 0; scale: var(--nar-scale); }
+  to   { opacity: 1; scale: 1; }
+}
+
+@keyframes nar-slide-up {
+  from { opacity: 0; translate: 0 var(--nar-distance); }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes nar-slide-down {
+  from { opacity: 0; translate: 0 calc(var(--nar-distance) * -1); }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   Respects user's motion preference.
+   Content remains fully visible — no layout shift.
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  :where([data-nar-motion]) {
+    animation-name:     none;
+    animation-timeline: auto;
+  }
+}

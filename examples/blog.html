@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Name — Blog example</title>
+<meta name="description" content="A fictional blog showing Narleaf Motion on a real page layout.">
+<link rel="stylesheet" href="../narleaf-core.css">
+<link rel="stylesheet" href="../narleaf-motion.css">
+<link rel="stylesheet" href="base.css">
+<style>
+:root {
+  --bg:      #111112;
+  --surface: #151e19;
+  --line:    #22302a;
+  --ink:     #e6efe9;
+  --ink-2:   #a3b3a9;
+  --accent:  #7ee0a1;
+  --ph-bg:   var(--bg);
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --nar-container-max: 760px;
+  color-scheme: dark;
+}
+
+body { background: var(--bg); color: var(--ink-2); font-size: 17px; line-height: 1.7; }
+
+h1, h2, h3 { margin: 0; color: var(--ink); line-height: 1.2; letter-spacing: -0.02em; }
+p { margin: 0; }
+
+.mono { font-family: var(--mono); font-size: 13px; letter-spacing: .02em; }
+
+/* ---------- Header ---------- */
+.top { display: flex; align-items: baseline; justify-content: space-between; padding-block: 28px; border-bottom: 1px solid var(--line); }
+.site { font-family: var(--mono); font-weight: 500; font-size: 16px; color: var(--ink); text-decoration: none; }
+.top nav { display: flex; gap: 22px; font-family: var(--mono); font-size: 13.5px; }
+.top nav a { text-decoration: none; }
+.top nav a:hover { color: var(--accent); }
+
+/* ---------- Intro ---------- */
+.intro { padding-block: clamp(48px, 8vw, 96px) clamp(32px, 5vw, 56px); }
+.intro h1 { max-width: 16ch; font-size: clamp(34px, 6vw, 56px); letter-spacing: -0.035em; text-wrap: balance; }
+.intro p { max-width: 52ch; margin-top: 18px; font-size: 19px; }
+
+/* ---------- Featured ---------- */
+.featured { display: block; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; transition: border-color .15s ease; }
+.featured:hover { border-color: var(--accent); }
+.featured .cover { aspect-ratio: 16 / 7; }
+.featured .body { padding: 24px 26px 28px; }
+.featured h2 { margin: 10px 0; font-size: clamp(24px, 3.6vw, 32px); }
+.featured .meta { margin-top: 14px; }
+.tag { color: var(--accent); text-transform: uppercase; letter-spacing: .1em; font-size: 12px; }
+
+/* ---------- Post list ---------- */
+.section-label { margin: clamp(48px, 7vw, 80px) 0 8px; padding-bottom: 14px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+.post { display: block; padding-block: 26px; border-bottom: 1px solid var(--line); text-decoration: none; }
+.post h3 { margin: 6px 0 8px; font-size: 22px; transition: color .15s ease; }
+.post:hover h3 { color: var(--accent); }
+.post p { font-size: 16px; }
+
+/* ---------- Article ---------- */
+.article { padding-block: clamp(48px, 7vw, 88px) 0; }
+.article header { margin-bottom: 36px; }
+.article h2 { margin: 12px 0 14px; font-size: clamp(30px, 5vw, 46px); letter-spacing: -0.03em; text-wrap: balance; }
+.article h3 { margin: 40px 0 12px; font-size: 24px; }
+.article p + p { margin-top: 20px; }
+.article code { font-family: var(--mono); font-size: .88em; padding: 2px 6px; background: var(--surface); border-radius: 5px; color: var(--ink); }
+.article .lead { font-size: 20px; color: var(--ink); }
+
+.pull { margin: 40px 0; padding: 8px 0 8px 24px; border-left: 3px solid var(--accent); }
+.pull p { font-size: clamp(22px, 3vw, 28px); line-height: 1.4; letter-spacing: -0.015em; color: var(--ink); }
+
+.note { margin: 36px 0; padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; font-size: 16px; }
+.note strong { color: var(--ink); }
+
+/* ---------- Tags / about ---------- */
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.tags a { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; font-family: var(--mono); font-size: 13px; text-decoration: none; transition: border-color .15s ease, color .15s ease; }
+.tags a:hover { border-color: var(--accent); color: var(--accent); }
+
+.about { margin-top: clamp(56px, 8vw, 96px); padding: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.about h2 { font-size: 22px; margin-bottom: 10px; }
+
+/* ---------- Footer ---------- */
+.foot { margin-top: clamp(56px, 8vw, 96px); padding-block: 32px 48px; border-top: 1px solid var(--line); font-size: 14px; }
+.foot .nar-container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
+</style>
+</head>
+<body>
+
+<div class="ex-bar"><div class="nar-container nar-pi-auto">
+  <span>Narleaf Motion example · blog · fictional content</span>
+  <a href="../index.html#examples">← Back to docs</a>
+</div></div>
+
+<header><div class="nar-container nar-pi-auto top">
+  <a class="site" href="#top">Blog Name</a>
+  <nav aria-label="Primary">
+    <a href="#posts">Posts</a>
+    <a href="#article">Latest</a>
+    <a href="#about">About</a>
+  </nav>
+</div></header>
+
+<main id="top" class="nar-container nar-pi-auto">
+
+<section class="intro">
+  <h1>Notes on building things for the web.</h1>
+  <p>Short, practical writing about design, code and the small decisions that make software pleasant to use.</p>
+</section>
+
+<a class="featured" href="#article" data-nar-motion="scale-up" data-nar-scale-start="90" data-nar-motion-start="0" data-nar-motion-end="35">
+  <div class="cover ph" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg></div>
+  <div class="body">
+    <span class="mono tag">Featured</span>
+    <h2>Why your site doesn't need a scroll animation library</h2>
+    <p>Modern browsers can tie animation directly to scroll position. Here is what that means for the code you ship.</p>
+    <p class="mono meta">Nov 12, 2026 · 6 min read</p>
+  </div>
+</a>
+
+<h2 class="section-label" id="posts" data-nar-motion="fade" data-nar-motion-start="0" data-nar-motion-end="30">Recent posts</h2>
+
+<a class="post" href="#" data-nar-motion="slide-up" data-nar-slide-distance="30" data-nar-motion-start="0" data-nar-motion-end="35">
+  <span class="mono">Nov 04, 2026 · 4 min read</span>
+  <h3>Designing empty states people actually read</h3>
+  <p>An empty screen is a chance to teach, not a gap to fill. A few patterns that work.</p>
+</a>
+<a class="post" href="#" data-nar-motion="slide-up" data-nar-slide-distance="30" data-nar-motion-start="0" data-nar-motion-end="35">
+  <span class="mono">Oct 21, 2026 · 8 min read</span>
+  <h3>A calmer way to write CSS</h3>
+  <p>Fewer selectors, more custom properties, and why zero-specificity defaults make overrides painless.</p>
+</a>
+<a class="post" href="#" data-nar-motion="slide-up" data-nar-slide-distance="30" data-nar-motion-start="0" data-nar-motion-end="35">
+  <span class="mono">Oct 09, 2026 · 5 min read</span>
+  <h3>Accessibility is mostly about restraint</h3>
+  <p>The simplest accessible interface is usually the one with the fewest surprises.</p>
+</a>
+<a class="post" href="#" data-nar-motion="slide-up" data-nar-slide-distance="30" data-nar-motion-start="0" data-nar-motion-end="35">
+  <span class="mono">Sep 27, 2026 · 7 min read</span>
+  <h3>What I learned shipping a side project in a weekend</h3>
+  <p>Scope is the only lever that matters. Notes on cutting features without cutting corners.</p>
+</a>
+
+<article class="article" id="article">
+  <header data-nar-motion="slide-up" data-nar-slide-distance="40" data-nar-motion-start="0" data-nar-motion-end="35">
+    <span class="mono tag">Latest article</span>
+    <h2>Why your site doesn't need a scroll animation library</h2>
+    <p class="mono">Nov 12, 2026 · 6 min read</p>
+  </header>
+
+  <p class="lead" data-nar-motion="fade" data-nar-motion-start="0" data-nar-motion-end="35">For years, animating things as they scroll into view meant JavaScript: an observer, some classes, and a handful of event listeners. That is no longer the only way.</p>
+
+  <p data-nar-motion="fade" data-nar-motion-start="0" data-nar-motion-end="35">Browsers now support animations driven by scroll position through CSS alone. You describe what should change, and the browser does the work off the main thread, so it stays smooth even when the page is busy.</p>
+
+  <h3 data-nar-motion="slide-up" data-nar-slide-distance="30" data-nar-motion-start="0" data-nar-motion-end="35">What changes in practice</h3>
+
+  <p data-nar-motion="fade" data-nar-motion-start="0" data-nar-motion-end="35">There is nothing to initialise and nothing to clean up. A single attribute on an element is enough, and if the browser does not support the feature, the content simply shows up as normal.</p>
+
+  <div class="pull" data-nar-motion="scale-up" data-nar-scale-start="90" data-nar-motion-start="0" data-nar-motion-end="40">
+    <p>The best animation code is the code you never have to run.</p>
+  </div>
+
+  <p data-nar-motion="fade" data-nar-motion-start="0" data-nar-motion-end="35">That fallback matters. Progressive enhancement means nobody is locked out of your content because their browser is a version behind, and people who prefer reduced motion get a still page without extra work.</p>
+
+  <div class="note" data-nar-motion="slide-up" data-nar-slide-distance="30" data-nar-motion-start="0" data-nar-motion-end="40">
+    <strong>Worth knowing:</strong> because the animation follows scroll position, taller elements take longer to animate than short ones. Test with real content, not just placeholder cards.
+  </div>
+
+  <p data-nar-motion="fade" data-nar-motion-start="0" data-nar-motion-end="35">If you are building a marketing page, a portfolio or a blog like this one, this is usually all you need.</p>
+
+  <div class="tags" data-nar-motion="fade" data-nar-motion-start="0" data-nar-motion-end="35">
+    <a href="#">css</a><a href="#">performance</a><a href="#">accessibility</a><a href="#">animation</a>
+  </div>
+</article>
+
+<section class="about" id="about" data-nar-motion="scale-up" data-nar-scale-start="90" data-nar-motion-start="0" data-nar-motion-end="40">
+  <h2>About this blog</h2>
+  <p>Blog Name is a placeholder blog created to show Narleaf Motion on a reading-focused page. The posts and details are placeholders.</p>
+</section>
+
+</main>
+
+<footer class="foot"><div class="nar-container nar-pi-auto">
+  <span>© Blog Name — placeholder content for demonstration.</span>
+  <span><a href="../index.html#examples">Back to the Narleaf Motion docs</a></span>
+</div></footer>
+
+</body>
+</html>

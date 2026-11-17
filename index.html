@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Narleaf Motion — All features</title>
+<meta name="description" content="Every Narleaf Motion effect and option on one page.">
+<link rel="stylesheet" href="narleaf-core.css">
+<link rel="stylesheet" href="narleaf-motion.css">
+<style>
+/* =========================================================
+   DEMO PAGE STYLES
+   (not part of the Narleaf Motion library; the library is narleaf-motion.css)
+   ========================================================= */
+
+@font-face {
+  font-family: "Public Sans";
+  src: url("fonts/public-sans/PublicSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("fonts/ibm-plex-mono/IBMPlexMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("fonts/ibm-plex-mono/IBMPlexMono-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg:       #111112;
+  --surface:  #19191a;
+  --sunken:   #232325;
+  --line:     #2c2c2f;
+  --ink:      #ededee;
+  --ink-2:    #a4a4ab;
+  --ink-3:    #8b8b92;
+  --accent:   #7d93ff;
+  --code-bg:  #0c0c0d;
+  --code-ink: #cfcfd3;
+  --sans: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --radius:    12px;
+  --radius-sm: 8px;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-padding-top: 72px;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+::selection { background: var(--accent); color: #111112; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 14px;
+}
+
+.nav a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.nav a:hover { color: var(--ink); }
+
+.nav .nav-link { display: none; }
+
+@media (min-width: 640px) {
+  .nav .nav-link { display: inline; }
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  padding-block: clamp(72px, 11vw, 136px) clamp(56px, 8vw, 96px);
+}
+
+.hero h1 {
+  max-width: 18ch;
+  margin: 0 0 20px;
+  font-size: clamp(36px, 6.2vw, 64px);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.hero .lead {
+  max-width: 52ch;
+  margin: 0 0 32px;
+  font-size: clamp(16px, 1.6vw, 19px);
+  color: var(--ink-2);
+}
+
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.toc a { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; color: var(--ink-2); text-decoration: none; }
+.toc a:hover { color: var(--ink); border-color: var(--ink-3); }
+
+.nb { white-space: nowrap; }
+
+/* ---------- Sections ---------- */
+
+.section {
+  padding-block: clamp(56px, 8vw, 104px);
+  border-top: 1px solid var(--line);
+}
+
+.section-grid { --nar-gap-block: 32px; }
+
+.aside h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.aside p {
+  max-width: 34ch;
+  margin: 0;
+  font-size: 15px;
+}
+
+@media (min-width: 1024px) {
+  .aside {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+  }
+}
+
+.sub { margin: 0 0 20px; font-size: 14.5px; max-width: 62ch; }
+.sub-title { margin: 0 0 6px; font-size: 17px; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+
+.gap-s { height: 24px; }
+.gap-m { height: 32px; }
+.gap-l { height: 112px; }
+
+/* ---------- Cards ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.g-card { padding: 20px; min-height: 150px; }
+
+.card-title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.card-text {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--ink-2);
+}
+
+.card-code {
+  margin: auto 0 0;
+  padding-top: 16px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+.example { text-decoration: none; transition: border-color .15s ease; }
+.example:hover { border-color: var(--ink-3); }
+.thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; margin-bottom: 16px; object-fit: cover; object-position: top; border: 1px solid var(--line); border-radius: var(--radius-sm); }
+
+.wrap-demo { display: inline-block; }
+.wrap-demo > div { padding: 12px 16px; background: var(--sunken); border-radius: var(--radius-sm); color: var(--ink); transform: rotate(-3deg); font-size: 14px; }
+
+/* ---------- Code ---------- */
+
+pre.snippet {
+  margin: 16px 0 0;
+  padding: 16px 18px;
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--code-ink);
+  overflow-x: auto;
+  tab-size: 2;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  padding-block: 36px 56px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+
+.site-footer a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="nar-container nar-pi-auto"><div class="bar">
+<a class="brand" href="#top">Narleaf Motion</a>
+<nav class="nav" aria-label="Primary">
+<a class="nav-link" href="#types">Effects</a>
+<a class="nav-link" href="#examples">Examples</a>
+<a href="https://github.com/withmehmet/narleaf-motion">GitHub</a>
+</nav></div></div></header>
+<main id="top">
+<section class="hero"><div class="nar-container nar-pi-auto"><div class="nar-grid nar-gap-auto"><div class="nar-span-12 nar-span-lg-8">
+<h1>Every feature, <span class="nb">one page.</span></h1>
+<p class="lead">All four effects and every option value, in one reference. Scroll through it, resize the window, try it with reduced motion on.</p>
+<div class="toc"><a href="#examples">Examples</a><a href="#types">Effects</a><a href="#scale">Scale</a><a href="#distance">Distance</a><a href="#timing">Timing</a><a href="#combos">Combinations</a><a href="#notes">Notes</a></div>
+</div></div></div></section>
+<section class="section" id="examples"><div class="nar-container nar-pi-auto">
+<div class="nar-grid nar-gap-auto section-grid">
+<div class="nar-span-12 nar-span-lg-4 aside"><h2>Examples</h2><p>Narleaf Motion on real page layouts. All content is fictional.</p></div>
+<div class="nar-span-12 nar-span-lg-8"><div class="nar-grid nar-gap-auto">
+<a class="nar-span-12 nar-span-sm-4 card g-card example" href="examples/landing.html" data-nar-motion="scale-up" data-nar-scale-start="90" data-nar-motion-start="0" data-nar-motion-end="30">
+  <img class="thumb" src="examples/previews/landing.jpg" width="800" height="500" loading="lazy" alt="Preview of the landing page example: a dark page with a large headline, two buttons and a board mockup.">
+  <h3 class="card-title">Landing page</h3>
+  <p class="card-text">A SaaS homepage with a hero, features, stats and pricing.</p>
+  <p class="card-code">scale-up · slide-up · fade</p>
+</a>
+<a class="nar-span-12 nar-span-sm-4 card g-card example" href="examples/portfolio.html" data-nar-motion="scale-up" data-nar-scale-start="90" data-nar-motion-start="5" data-nar-motion-end="35">
+  <img class="thumb" src="examples/previews/portfolio.jpg" width="800" height="500" loading="lazy" alt="Preview of the portfolio example: a dark page with a very large headline and an orange accent word.">
+  <h3 class="card-title">Portfolio</h3>
+  <p class="card-text">A studio site with a project grid, services and contact.</p>
+  <p class="card-code">slide-up · scale-up · fade</p>
+</a>
+<a class="nar-span-12 nar-span-sm-4 card g-card example" href="examples/blog.html" data-nar-motion="scale-up" data-nar-scale-start="90" data-nar-motion-start="10" data-nar-motion-end="40">
+  <img class="thumb" src="examples/previews/blog.jpg" width="800" height="500" loading="lazy" alt="Preview of the blog example: a dark reading page with a headline and a featured post card.">
+  <h3 class="card-title">Blog</h3>
+  <p class="card-text">A reading-focused page with a featured post and an article.</p>
+  <p class="card-code">fade · slide-up · scale-up</p>
+</a>
+</div></div>
+</div></div></section>
+
+<section class="section" id="types"><div class="nar-container nar-pi-auto">
+<div class="nar-grid nar-gap-auto section-grid">
+<div class="nar-span-12 nar-span-lg-4 aside"><h2>Effects</h2><p>The four motion types, with defaults.</p></div>
+<div class="nar-span-12 nar-span-lg-8"><div class="nar-grid nar-gap-auto">
+<div class="nar-span-6 nar-span-lg-3 card g-card" data-nar-motion="fade">
+  <h3 class="card-title">fade</h3>
+  <p class="card-text">Only opacity changes.</p>
+  <p class="card-code">data-nar-motion="fade"</p>
+</div>
+<div class="nar-span-6 nar-span-lg-3 card g-card" data-nar-motion="scale-up">
+  <h3 class="card-title">scale-up</h3>
+  <p class="card-text">Grows from a smaller size to full size.</p>
+  <p class="card-code">data-nar-motion="scale-up"</p>
+</div>
+<div class="nar-span-6 nar-span-lg-3 card g-card" data-nar-motion="slide-up">
+  <h3 class="card-title">slide-up</h3>
+  <p class="card-text">Rises from below while fading in.</p>
+  <p class="card-code">data-nar-motion="slide-up"</p>
+</div>
+<div class="nar-span-6 nar-span-lg-3 card g-card" data-nar-motion="slide-down">
+  <h3 class="card-title">slide-down</h3>
+  <p class="card-text">Drops from above while fading in.</p>
+  <p class="card-code">data-nar-motion="slide-down"</p>
+</div>
+</div>
+</div>
+</div></div></section>
+
+<section class="section" id="scale"><div class="nar-container nar-pi-auto">
+<div class="nar-grid nar-gap-auto section-grid">
+<div class="nar-span-12 nar-span-lg-4 aside"><h2>Scale start</h2><p>Five starting sizes for scale-up.</p></div>
+<div class="nar-span-12 nar-span-lg-8"><h3 class="sub-title">data-nar-scale-start</h3><p class="sub">Starting size of scale-up. Default 70.</p>
+<div class="nar-grid nar-gap-auto">
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="scale-up" data-nar-scale-start="90">
+  <h4 class="card-title">scale-start = 90</h4>
+  <p class="card-text">Starts at 90% size.</p>
+  <p class="card-code">data-nar-motion="scale-up" data-nar-scale-start="90"</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="scale-up" data-nar-scale-start="80">
+  <h4 class="card-title">scale-start = 80</h4>
+  <p class="card-text">Starts at 80% size.</p>
+  <p class="card-code">data-nar-motion="scale-up" data-nar-scale-start="80"</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="scale-up" data-nar-scale-start="70">
+  <h4 class="card-title">scale-start = 70</h4>
+  <p class="card-text">Starts at 70% size.</p>
+  <p class="card-code">data-nar-motion="scale-up" data-nar-scale-start="70"</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="scale-up" data-nar-scale-start="60">
+  <h4 class="card-title">scale-start = 60</h4>
+  <p class="card-text">Starts at 60% size.</p>
+  <p class="card-code">data-nar-motion="scale-up" data-nar-scale-start="60"</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="scale-up" data-nar-scale-start="50">
+  <h4 class="card-title">scale-start = 50</h4>
+  <p class="card-text">Starts at 50% size.</p>
+  <p class="card-code">data-nar-motion="scale-up" data-nar-scale-start="50"</p>
+</div>
+</div>
+</div>
+</div></div></section>
+
+<section class="section" id="distance"><div class="nar-container nar-pi-auto">
+<div class="nar-grid nar-gap-auto section-grid">
+<div class="nar-span-12 nar-span-lg-4 aside"><h2>Slide distance</h2><p>Every distance step for slide-up and slide-down.</p></div>
+<div class="nar-span-12 nar-span-lg-8"><h3 class="sub-title">data-nar-slide-distance</h3><p class="sub">Travel distance in px for slide-up and slide-down. 30–150, steps of 10. Default 50.</p>
+<div class="nar-grid nar-gap-auto">
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="30">
+  <h4 class="card-title">30px</h4>
+  <p class="card-text">slide-up, 30px.</p>
+  <p class="card-code">slide-up · distance 30</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="40">
+  <h4 class="card-title">40px</h4>
+  <p class="card-text">slide-up, 40px.</p>
+  <p class="card-code">slide-up · distance 40</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="50">
+  <h4 class="card-title">50px</h4>
+  <p class="card-text">slide-up, 50px.</p>
+  <p class="card-code">slide-up · distance 50</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="60">
+  <h4 class="card-title">60px</h4>
+  <p class="card-text">slide-up, 60px.</p>
+  <p class="card-code">slide-up · distance 60</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="70">
+  <h4 class="card-title">70px</h4>
+  <p class="card-text">slide-up, 70px.</p>
+  <p class="card-code">slide-up · distance 70</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="80">
+  <h4 class="card-title">80px</h4>
+  <p class="card-text">slide-up, 80px.</p>
+  <p class="card-code">slide-up · distance 80</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="90">
+  <h4 class="card-title">90px</h4>
+  <p class="card-text">slide-up, 90px.</p>
+  <p class="card-code">slide-up · distance 90</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="100">
+  <h4 class="card-title">100px</h4>
+  <p class="card-text">slide-up, 100px.</p>
+  <p class="card-code">slide-up · distance 100</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="110">
+  <h4 class="card-title">110px</h4>
+  <p class="card-text">slide-up, 110px.</p>
+  <p class="card-code">slide-up · distance 110</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="120">
+  <h4 class="card-title">120px</h4>
+  <p class="card-text">slide-up, 120px.</p>
+  <p class="card-code">slide-up · distance 120</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="130">
+  <h4 class="card-title">130px</h4>
+  <p class="card-text">slide-up, 130px.</p>
+  <p class="card-code">slide-up · distance 130</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="140">
+  <h4 class="card-title">140px</h4>
+  <p class="card-text">slide-up, 140px.</p>
+  <p class="card-code">slide-up · distance 140</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-slide-distance="150">
+  <h4 class="card-title">150px</h4>
+  <p class="card-text">slide-up, 150px.</p>
+  <p class="card-code">slide-up · distance 150</p>
+</div>
+</div>
+<div class="gap-l"></div><h3 class="sub-title">slide-down</h3><p class="sub">Same distance scale, opposite direction.</p>
+<div class="nar-grid nar-gap-auto">
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-down" data-nar-slide-distance="30">
+  <h4 class="card-title">30px</h4>
+  <p class="card-text">slide-down, 30px.</p>
+  <p class="card-code">slide-down · distance 30</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-down" data-nar-slide-distance="70">
+  <h4 class="card-title">70px</h4>
+  <p class="card-text">slide-down, 70px.</p>
+  <p class="card-code">slide-down · distance 70</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-down" data-nar-slide-distance="110">
+  <h4 class="card-title">110px</h4>
+  <p class="card-text">slide-down, 110px.</p>
+  <p class="card-code">slide-down · distance 110</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-down" data-nar-slide-distance="150">
+  <h4 class="card-title">150px</h4>
+  <p class="card-text">slide-down, 150px.</p>
+  <p class="card-code">slide-down · distance 150</p>
+</div>
+</div>
+</div>
+</div></div></section>
+
+<section class="section" id="timing"><div class="nar-container nar-pi-auto">
+<div class="nar-grid nar-gap-auto section-grid">
+<div class="nar-span-12 nar-span-lg-4 aside"><h2>Timing</h2><p>Start and end windows, plus long content.</p></div>
+<div class="nar-span-12 nar-span-lg-8"><h3 class="sub-title">data-nar-motion-start / -end</h3><p class="sub">When, within the element's time on screen, the animation starts and ends. 0–100, steps of 5. Defaults 10 and 50. Percentages are relative to each element's own timeline.</p>
+<div class="nar-grid nar-gap-auto">
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-motion-start="0" data-nar-motion-end="20">
+  <h4 class="card-title">start 0 · end 20</h4>
+  <p class="card-text">Finishes almost immediately.</p>
+  <p class="card-code">start=0 end=20</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-motion-start="0" data-nar-motion-end="50">
+  <h4 class="card-title">start 0 · end 50</h4>
+  <p class="card-text">Custom timing window.</p>
+  <p class="card-code">start=0 end=50</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-motion-start="0" data-nar-motion-end="100">
+  <h4 class="card-title">start 0 · end 100</h4>
+  <p class="card-text">Plays across the whole time on screen.</p>
+  <p class="card-code">start=0 end=100</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-motion-start="10" data-nar-motion-end="50">
+  <h4 class="card-title">start 10 · end 50</h4>
+  <p class="card-text">Custom timing window.</p>
+  <p class="card-code">start=10 end=50</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-motion-start="20" data-nar-motion-end="60">
+  <h4 class="card-title">start 20 · end 60</h4>
+  <p class="card-text">Custom timing window.</p>
+  <p class="card-code">start=20 end=60</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-motion-start="30" data-nar-motion-end="70">
+  <h4 class="card-title">start 30 · end 70</h4>
+  <p class="card-text">Custom timing window.</p>
+  <p class="card-code">start=30 end=70</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-motion-start="50" data-nar-motion-end="100">
+  <h4 class="card-title">start 50 · end 100</h4>
+  <p class="card-text">Starts late, ends at the bottom.</p>
+  <p class="card-code">start=50 end=100</p>
+</div>
+<div class="nar-span-6 nar-span-sm-4 nar-span-lg-3 card g-card" data-nar-motion="slide-up" data-nar-motion-start="75" data-nar-motion-end="100">
+  <h4 class="card-title">start 75 · end 100</h4>
+  <p class="card-text">Starts late, ends at the bottom.</p>
+  <p class="card-code">start=75 end=100</p>
+</div>
+</div>
+<div class="gap-s"></div><h3 class="sub-title">Long content</h3><p class="sub">Same values, taller element: the animation stretches over a longer scroll distance.</p>
+<div class="card" data-nar-motion="slide-up" data-nar-motion-start="10" data-nar-motion-end="50"><h4 class="card-title">Tall card</h4><p class="card-text">This card is much taller than the others, so its time on screen is longer. The same percentages therefore map to a longer scroll distance, and the animation feels slower, even though the attributes are identical. This card is much taller than the others, so its time on screen is longer. The same percentages therefore map to a longer scroll distance, and the animation feels slower, even though the attributes are identical. This card is much taller than the others, so its time on screen is longer. The same percentages therefore map to a longer scroll distance, and the animation feels slower, even though the attributes are identical. This card is much taller than the others, so its time on screen is longer. The same percentages therefore map to a longer scroll distance, and the animation feels slower, even though the attributes are identical.</p><p class="card-code">start=10 end=50</p></div>
+</div>
+</div></div></section>
+
+<section class="section" id="combos"><div class="nar-container nar-pi-auto">
+<div class="nar-grid nar-gap-auto section-grid">
+<div class="nar-span-12 nar-span-lg-4 aside"><h2>Combinations</h2><p>Options work together. Also: will-change and wrapper elements.</p></div>
+<div class="nar-span-12 nar-span-lg-8"><div class="nar-grid nar-gap-auto">
+<div class="nar-span-12 nar-span-sm-6 card g-card" data-nar-motion="scale-up" data-nar-scale-start="50" data-nar-motion-start="0" data-nar-motion-end="60">
+  <h3 class="card-title">scale-up + timing</h3>
+  <p class="card-text">Scale 50, window 0–60.</p>
+  <p class="card-code">scale-start=50 start=0 end=60</p>
+</div>
+<div class="nar-span-12 nar-span-sm-6 card g-card" data-nar-motion="slide-down" data-nar-slide-distance="100" data-nar-motion-start="5" data-nar-motion-end="40">
+  <h3 class="card-title">slide-down + distance + timing</h3>
+  <p class="card-text">100px, window 5–40.</p>
+  <p class="card-code">distance=100 start=5 end=40</p>
+</div>
+<div class="nar-span-12 nar-span-sm-6 card g-card" data-nar-motion="fade" data-nar-motion-start="0" data-nar-motion-end="100">
+  <h3 class="card-title">slow fade</h3>
+  <p class="card-text">Fade across the full pass.</p>
+  <p class="card-code">fade start=0 end=100</p>
+</div>
+<div class="nar-span-12 nar-span-sm-6 card g-card" data-nar-motion="slide-up" data-nar-motion-will-change>
+  <h3 class="card-title">will-change opt-in</h3>
+  <p class="card-text">Promotes the element to its own layer up front.</p>
+  <p class="card-code">data-nar-motion-will-change</p>
+</div>
+</div>
+<div class="gap-m"></div><h3 class="sub-title">Using your own transform</h3><p class="sub">translate and scale are independent properties, so they can clash with your own. Put your transform on an inner element.</p>
+<div data-nar-motion="slide-up"><div class="wrap-demo"><div>I have my own rotate(-3deg)</div></div></div>
+<pre class="snippet">&lt;div data-nar-motion="slide-up"&gt;
+  &lt;div style="transform: rotate(-3deg)"&gt;...&lt;/div&gt;
+&lt;/div&gt;</pre>
+</div>
+</div></div></section>
+
+<section class="section" id="notes"><div class="nar-container nar-pi-auto">
+<div class="nar-grid nar-gap-auto section-grid">
+<div class="nar-span-12 nar-span-lg-4 aside"><h2>Notes</h2><p>Accessibility and support.</p></div>
+<div class="nar-span-12 nar-span-lg-8"><h3 class="sub-title">Accessibility</h3>
+<p class="sub">If your OS is set to reduce motion, every example on this page appears fully visible with no animation. Browsers without scroll-driven animations show the content as normal.</p>
+<h3 class="sub-title">Browsers</h3>
+<p class="sub">Chromium 115+ and Safari 26+ support scroll-driven animations; Firefox support is behind a flag at the time of writing. See the README for details.</p></div>
+</div></div></section>
+
+</main>
+<footer class="site-footer"><div class="nar-container nar-pi-auto"><div class="footer-row">
+<span>Narleaf Motion · MIT License</span>
+<span><a href="https://github.com/withmehmet/narleaf-motion">GitHub</a>&nbsp;·&nbsp;<a href="https://github.com/withmehmet/narleaf-motion#readme">README</a></span>
+</div></div></footer>
+</body></html>
